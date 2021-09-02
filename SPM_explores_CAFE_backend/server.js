@@ -12,9 +12,11 @@ app.use(cors())
 app.use(fileUpload({
     useTempFiles: true
 }))
-
+ 
 // Routes
-
+app.use('/emp', require('./routes/empRouter'))
+app.use('/api', require('./routes/categoryRouter'))
+app.use('/api', require('./routes/upload'))
 
 //connect to DB
 const URI = process.env.MONGODB_URL
