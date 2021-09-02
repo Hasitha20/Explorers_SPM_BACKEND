@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
 
 },{
     //using timestamps we can know created time and date
-    //test 2
+    //test 3
     timestamps: true
 })
 
