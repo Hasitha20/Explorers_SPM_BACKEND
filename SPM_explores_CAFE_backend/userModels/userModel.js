@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         //required: [true, 'Email field is required'],
-        //keep required
+    
         unique: true
     },
 
@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+        //trim is used to know created time and date
     }, 
     role: {
         type: Number,
