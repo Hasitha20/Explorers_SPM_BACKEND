@@ -13,7 +13,8 @@ app.use(fileUpload({
     useTempFiles: true
 }))
 
-// Routes
+// Calling Routes
+app.use('/user', require('./userRouter/userRouter'))
 
 
 //connect to DB
