@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         //required: [true, 'Email field is required'],
+        //keep required
         unique: true
     },
 
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema({
 
 },{
     //using timestamps we can know created time and date
-    //test 3
+    //test 4
     timestamps: true
 })
 
