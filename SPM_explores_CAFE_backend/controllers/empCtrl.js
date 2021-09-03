@@ -1,9 +1,10 @@
 const Employees = require('../models/empModel')
+//const bcrypt = require('bcrypt')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const empCtrl = {
-    regoster: async (req, res) => {
+    register: async (req, res) => {
         try {
             const {
                 name,
@@ -27,7 +28,7 @@ const empCtrl = {
             const newEmp = new Employees({
                 name,
                 email,
-                password,
+                password : passwordHash,
                 designation,
                 phone,
                 gender,
@@ -48,6 +49,68 @@ const empCtrl = {
             res.json({accesstoken})
             //res.json({msg: "Registered."})
 
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    login: async (req, res) => {
+        try {
+            const {email, password} = req.body;
+
+            const employee = await Employees.findOne({email})
+
+            if(!employee) return res.status(400).json({msg: "Employee does not exist."})
+
+            const isMatch = await bcrypt.compare(password, employee.password)
+            if(!isMatch) return res.status(400).json({msg: "Incorrect password"})
+
+            const accesstoken = createAccessToken({id: employee._id})
+            const refreshtoken = createRefreshToken({id: employee._id})
+
+            res.cookie('refreshtoken', refreshtoken, {
+                httpOnly: true,
+                path: '/emp/refresh_token'
+            })
+
+            res.json({accesstoken})
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    logout: async (req, res) => {
+        try {
+            res.clearCookie('refreshtoken', {path: '/emp/refresh_token'})
+            return res.json({msg: "Logged out"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    refreshToken: (req, res) => {
+        try {
+            const rf_token = req.cookies.refreshtoken;
+
+            if(!rf_token) return res.status(400).json({msg: "Please login or register."})
+
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, emp) => {
+                if(err) return res.status(400).json({msg: "Please login or register."})
+                
+                const accesstoken = createAccessToken({id: emp.id})
+                
+                res.json({accesstoken})
+            })
+
+            //res.json({rf_token})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getEmployee: async (req, res) => {
+        try {
+            const employee = await Employees.findById(req.employee.id).select('-password')
+            if(!employee) return res.status(400).json({msg: "Employee does not exist"})
+
+            res.json(employee)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
