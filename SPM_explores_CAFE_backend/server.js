@@ -17,6 +17,7 @@ app.use(fileUpload({
 app.use('/emp', require('./routes/empRouter'))
 app.use('/api', require('./routes/categoryRouter'))
 app.use('/api', require('./routes/upload'))
+app.use('/api', require('./routes/customerMessageRouter_manager'))
 
 //connect to DB
 const URI = process.env.MONGODB_URL
