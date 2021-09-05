@@ -12,4 +12,6 @@ router.get('/refresh_token', empCtrl.refreshToken)
 
 router.get('/infor', auth, empCtrl.getEmployee)
 
+router.get('/getEmpList', empCtrl.getEmployeeList)
+
 module.exports = router

@@ -3,7 +3,54 @@ const Employees = require('../models/empModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+class APIfeature {
+    constructor(query, queryString){
+        this.query = query;
+        this.queryString = queryString;
+    }
+    filtering(){
+        const queryObj = {...this.queryString}
+        
+        const excludedFields = ['page', 'sort', 'limit']
+
+        excludedFields.forEach(el => delete(queryObj[el]))
+
+        let queryStr = JSON.stringify(queryObj)
+        
+        queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
+        
+        this.query.find(JSON.parse(queryStr))
+
+        return this;
+    }
+
+    sorting(){
+        if(this.queryString.sort){
+            const sortBy = this.queryString.sort.split(',').join(' ')
+            this.query = this.query.sort(sortBy)
+        }else{
+            this.query = this.query.sort('-createdAt')
+        }
+        return this;
+    }
+}
+
 const empCtrl = {
+    getEmployeeList: async (req, res) => {
+        try {
+//            console.log(req.query)
+            const features = new APIfeature(Employees.find(), req.query).filtering().sorting()
+            const emps = await features.query
+
+            res.json({
+                status: 'success',
+                result: emps.length,
+                emps: emps
+            })
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     register: async (req, res) => {
         try {
             const {
@@ -29,7 +76,7 @@ const empCtrl = {
                 name,
                 email,
                 password : passwordHash,
-                designation,
+                designation : designation.toLowerCase(),
                 phone,
                 gender,
                 emergencyPhone,
