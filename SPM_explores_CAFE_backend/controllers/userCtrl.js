@@ -1,10 +1,10 @@
 const Users = require('../models/userModel')
-/* const Payments = require('../models/paymentModel') */
-//const bcrypt = require('bcrypt')
+//const Payments = require('../models/paymentModel')
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const userCtrl = {
-     register: async (req, res) =>{
+    register: async (req, res) =>{
         try{
             const {name, email, password} = req.body;
 
@@ -92,8 +92,7 @@ const userCtrl = {
             return res.status(500).json({msg: err.message}) 
         }
         
-    }
-    ,
+    },
     getUser: async (req, res) =>{
         try{
             const user = await Users.findById(req.user.id).select('-password')
@@ -102,9 +101,8 @@ const userCtrl = {
         }catch(err){
             return res.status(500).json({msg: err.message}) 
         }
-    }
-    /*,
-    addCart: async (req, res) =>{
+    },
+    /* addCart: async (req, res) =>{
         try{
             const user = await Users.findById(req.user.id);
             if(!user) return res.status(400).json({msg: "User does not exist."})
@@ -118,7 +116,7 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-   /*  history: async(req, res) =>{
+    history: async(req, res) =>{
         try{
             const history = await Payments.find({user_id: req.user.id})
 
@@ -135,7 +133,7 @@ const createAccessToken = (user) =>{
 }
 const createRefreshToken = (user) =>{
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'})
- 
+
 }
 
 module.exports = userCtrl

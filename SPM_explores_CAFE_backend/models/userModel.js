@@ -1,55 +1,29 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    name: {
+    name:{
         type: String,
         required: true,
         trim: true
     },
-    email: {
+    email:{
         type: String,
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    designation: {
+    password:{
         type: String,
         required: true
-    },
-    phone: {
-        type: Number,
-        required: true
-    }, 
-    gender: {
-        type: String,
-        required: true
-    }, 
-    emergencyPhone: {
-        type: String,
-        required: true
-    }, 
-    dutyType: {
-        type: String,
-        required: true
-    }, 
-    userName: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    role: {
+    },    
+    role:{
         type: Number,
         default: 0
     },
-    status: {
-        type: String,
-        default: 'available'
+    cart:{
+        type: Array,
+        default: []
     }
 }, {
     timestamps: true
 })
-module.exports = mongoose.model('Users', userSchema)
+module.exports = mongoose.model('Cashiertest1', userSchema)
