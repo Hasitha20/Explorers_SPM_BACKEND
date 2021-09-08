@@ -118,7 +118,7 @@ const empCtrl = {
                 httpOnly: true,
                 path: '/emp/refresh_token'
             })
-
+ 
             res.json({accesstoken})
 
         } catch (err) {
