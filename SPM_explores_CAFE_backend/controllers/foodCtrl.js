@@ -1,6 +1,4 @@
 const Foods = require('../models/foodModel')
-// const Foods = require('../models/foodModel')
-
 
 class APIfeatures {
     constructor(query, queryString){

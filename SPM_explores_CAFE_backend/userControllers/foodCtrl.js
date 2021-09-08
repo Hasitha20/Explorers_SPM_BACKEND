@@ -1,4 +1,4 @@
-const Foods = require('../userModels/foodModel')
+const Foods = require('../models/foodModel')
 
 
 class APIfeatures {
