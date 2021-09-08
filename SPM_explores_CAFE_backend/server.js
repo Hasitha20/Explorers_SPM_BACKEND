@@ -3,49 +3,39 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
-const cookieParser = require('cookie-parser')
+const cookieparser = require('cookie-parser')
 
 const app = express()
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieparser())
 app.use(cors())
 app.use(fileUpload({
     useTempFiles: true
+
 }))
 
-// Routes
-app.use('/api', require('./routes/categoryRouter'))
-app.use('/user', require('./routes/userRouter'))
-app.use('/api', require('./routes/cashierReportRouter'))
 
+//Routes
+app.use('/csuser', require('./routes/csUserRouter'));
+app.use('/api', require('./routes/csSavedReportRouter'));
 
-//connect to DB
+//connect to mongodb
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
-}, err => {
+}, err =>{
     if(err) throw err;
-    console.log("Connected MongoDB")
+    console.log('Connected to mongodb')
 })
-const cashierReportRouter = require('./routes/cashierReportT.js');
-app.use("/saveNewReport", cashierReportRouter);
 
-const newReportRouter = require('./routes/NewReportRouter.js');
-app.use("/newReportRouteFile", newReportRouter);
-
-const productRouter = require('./routes/productRouter');
-app.use("/product", productRouter);
-
-const userNewRouter = require('./routes/newuserRouter');
-app.use("/usersnew", userNewRouter);
-
-const categoryCashierRouter = require('./routes/categoryCashier.js');
-app.use("/categoryRouter", categoryCashierRouter);
+/* app.get('/', (req, res)=>{
+    res.json({msg: "Welcome msg"})
+}) */
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-    console.log('Server is running on PORT ', PORT)
+app.listen(PORT, ()=>{
+    console.log('Server is running on port', PORT)
 })
