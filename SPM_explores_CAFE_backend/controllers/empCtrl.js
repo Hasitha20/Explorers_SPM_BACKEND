@@ -161,6 +161,16 @@ const empCtrl = {
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
+    },
+    getEmployeesInformation: async (req, res) => {
+        try {
+            
+            const employee = await Employees.find()
+            res.json(employee)
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
     }
 }
 

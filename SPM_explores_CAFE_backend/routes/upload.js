@@ -11,7 +11,7 @@ cloudinary.config({
 })
 
 //upload an image
-router.post('/upload', (req, res) => {
+router.post('/uploadImage', (req, res) => {
     try {
         console.log(req.files)
         if(!req.files || Object.keys(req.files).length === 0)
