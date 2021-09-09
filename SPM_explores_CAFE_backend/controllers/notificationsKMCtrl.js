@@ -39,7 +39,9 @@ const notificationsKMCtrl = {
 
     deleteMessagesKM: async (req, res) => {
         try {
-            
+            await MessagesKM.findByIdAndDelete(req.params.id)
+            res.json({msg: "Deleted a Food Item!"})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -47,7 +49,14 @@ const notificationsKMCtrl = {
 
     updateMessagesKM: async (req, res) => {
         try {
-            
+            const {message_id, title, description} = req.body;
+
+            await MessagesKM.findOneAndUpdate({_id: req.params.id}, {
+                message_id, title, description
+            })
+
+            res.json({msg: "Updated a Food Item!"})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
