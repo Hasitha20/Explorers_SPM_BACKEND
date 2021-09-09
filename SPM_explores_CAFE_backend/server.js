@@ -22,6 +22,7 @@ app.use('/api', require('./routes/customerMessageRouter_manager'))
 // KM
 app.use('/api', require('./routes/uploadKM'))
 app.use('/api', require('./routes/foodsRouter'))
+app.use('/api', require('./routes/notificationsKMRouter'))
  
 
 
