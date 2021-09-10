@@ -18,6 +18,8 @@ app.use(fileUpload({
 //Routes
 app.use('/csuser', require('./routes/csUserRouter'));
 app.use('/api', require('./routes/csSavedReportRouter'));
+app.use('/api', require('./routes/upload'));
+
 
 //connect to mongodb
 const URI = process.env.MONGODB_URL

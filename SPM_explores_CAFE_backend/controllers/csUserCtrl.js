@@ -6,7 +6,7 @@ const csUserCtrl = {
 
     register: async (req, res) =>{
         try{
-            const {name, email, password} = req.body;
+            const {name, email, password, images} = req.body;
 
             const user = await csUsers.findOne({email})
 
@@ -18,7 +18,7 @@ const csUserCtrl = {
             const passwordHash = await bcrypt.hash(password, 10)
 
             const newUser = new csUsers({
-                name, email, password: passwordHash
+                name, email, password: passwordHash, images
             })
            // res.json({password, passwordHash})
 
