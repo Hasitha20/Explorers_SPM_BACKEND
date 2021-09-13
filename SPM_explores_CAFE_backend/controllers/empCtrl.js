@@ -154,14 +154,14 @@ const empCtrl = {
     },
     getEmployee: async (req, res) => {
         try {
-            const employee = await Employees.findById(req.employee.id).select('-password')
+            const employee = await Employees.findById(req.user.id).select('-password')
             if(!employee) return res.status(400).json({msg: "Employee does not exist"})
 
             res.json(employee)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    },
+    }, 
     getEmployeesInformation: async (req, res) => {
         try {
             
