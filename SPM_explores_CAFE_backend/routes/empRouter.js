@@ -14,4 +14,6 @@ router.get('/infor', auth, empCtrl.getEmployee)
 
 router.get('/getEmpList', empCtrl.getEmployeeList)
 
+router.get('/getEmployee', empCtrl.getEmployeesInformation)
+
 module.exports = router
