@@ -1,4 +1,4 @@
-const Foods = require('../models/foodModel')
+const Foods = require('../models/foodKMModel')
 // const Foods = require('../models/foodModel')
 
 

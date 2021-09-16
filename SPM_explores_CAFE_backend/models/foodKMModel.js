@@ -38,6 +38,10 @@ const foodSchema = new mongoose.Schema({
     sold: {
         type: Number,
         default: 0
+    },
+    category: {
+        type: String,
+        // required: true
     }
 
 

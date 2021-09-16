@@ -1,5 +1,5 @@
 const router  = require('express').Router()
-const foodCtrl = require('../controllers/foodCtrl')
+const foodCtrl = require('../controllers/foodKMCtrl')
 // const foodCtrl = require('../controllers/foodCtrl')
 
 router.route('/foods')
