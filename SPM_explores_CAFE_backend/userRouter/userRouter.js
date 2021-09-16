@@ -11,4 +11,6 @@ router.post('/refresh_token', userCtrl.refreshToken)
 //this is used to get user informations
 router.get('/infor',auth, userCtrl.getUser)
 
+router.get('/customerList', userCtrl.getCustomerInformation)
+
 module.exports = router

@@ -73,7 +73,7 @@ const empCtrl = {
 
             const passwordHash = await bcrypt.hash(password, 10)
             const newEmp = new Employees({
-                name,
+                name : name.toLowerCase(),
                 email,
                 password : passwordHash,
                 designation : designation.toLowerCase(),
@@ -168,6 +168,18 @@ const empCtrl = {
             const employee = await Employees.find()
             res.json(employee)
 
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    updateEmpDetails: async (req, res) => {
+        try {
+            const {status} = req.body;
+
+            await Employees.findOneAndUpdate({_id: req.params.id}, {
+                status
+            })
+            res.json({msg: "Changed the status of the employee"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
