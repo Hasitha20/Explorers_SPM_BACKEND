@@ -179,7 +179,7 @@ const empCtrl = {
             await Employees.findOneAndUpdate({_id: req.params.id}, {
                 status
             })
-            res.json({msg: "Changed the status of the employee"})
+            res.json({msg: "Changed the status of the Duty"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
