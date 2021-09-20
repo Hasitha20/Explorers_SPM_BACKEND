@@ -1,4 +1,4 @@
-const SavedReport = require('../models/csSavedReportModel')
+const submitReport = require('../models/csSubmitReportModel')
 
 class APIfeatures {
     constructor(query, queryString){
@@ -39,17 +39,17 @@ class APIfeatures {
 }
 
 
-const savedReportCtrl = {
-    getSavedReports : async (req, res) =>{
+const submitReportCtrl = {
+    getsubmitReports : async (req, res) =>{
         try{
             console.log(req.query)
-            const features = new APIfeatures(SavedReport.find(), req.query).filtering().sorting().paginating()
-            const savedReports = await features.query
+            const features = new APIfeatures(submitReport.find(), req.query).filtering().sorting().paginating()
+            const submitReports = await features.query
 
             res.json({
                 status: 'success',
-                result: savedReports.length,
-                savedReports: savedReports
+                result: submitReports.length,
+                submitReports: submitReports
             })
 
         }catch(err){
@@ -62,35 +62,35 @@ const savedReportCtrl = {
             const {date, start_time, end_time, orders_count,complete_orders_count, 
                 canceled_orders_count, revenue, other_payments, total_suppliers_charges  } = req.body;
             
-            const savedReport = await SavedReport.findOne({date})
-            //if(savedReport)  return res.status(400).json({msg: "In this date already saved or submitted report"})
+            const submittedReport = await submitReport.findOne({date})
+            if(submittedReport)  return res.status(400).json({msg: "In this date already submitted "})
           
 
-            const newReport = new SavedReport({
+            const newReport = new submitReport({
                 date, start_time, end_time, orders_count,complete_orders_count, 
                 canceled_orders_count, revenue, other_payments, total_suppliers_charges
             })
             await newReport.save()
-            res.json({msg: "Report saved successfully"})
+            res.json({msg: "Report submit successfully"})
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
     },
-    deleteSavedReport: async (req, res) =>{
+    deletesubmitReport: async (req, res) =>{
         try{
-            await SavedReport.findByIdAndDelete(req.params.id)
+            await submitReport.findByIdAndDelete(req.params.id)
             res.json({msg: "Deleted a Saved Report"})
 
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
     },
-    updateSavedReport: async (req, res) =>{
+    updatesubmitReport: async (req, res) =>{
         try{
             const {date, start_time, end_time, orders_count,complete_orders_count, 
                 canceled_orders_count, revenue, other_payments, total_suppliers_charges  } = req.body;
 
-            await SavedReport.findOneAndUpdate({_id: req.params.id}, {date, start_time, end_time, orders_count,
+            await submitReport.findOneAndUpdate({_id: req.params.id}, {date, start_time, end_time, orders_count,
             complete_orders_count, canceled_orders_count, revenue, other_payments, total_suppliers_charges})
 
             res.json({msg: "Updated a saved Report"})
@@ -101,4 +101,4 @@ const savedReportCtrl = {
     }
 }
 
-module.exports = savedReportCtrl
+module.exports = submitReportCtrl
