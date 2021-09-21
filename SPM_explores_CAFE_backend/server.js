@@ -20,7 +20,8 @@ app.use('/csuser', require('./routes/csUserRouter'));
 app.use('/api', require('./routes/csSavedReportRouter'));
 app.use('/api', require('./routes/csSumitReportRouter'));
 app.use('/api', require('./routes/csupload'));
-
+app.use('/api', require('./routes/categoryRouter'))
+app.use('/api', require('./routes/csOrdersRouter'))
 
 
 //connect to mongodb

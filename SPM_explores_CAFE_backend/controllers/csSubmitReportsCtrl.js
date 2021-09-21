@@ -42,7 +42,6 @@ class APIfeatures {
 const submitReportCtrl = {
     getsubmitReports : async (req, res) =>{
         try{
-            console.log(req.query)
             const features = new APIfeatures(submitReport.find(), req.query).filtering().sorting().paginating()
             const submitReports = await features.query
 
