@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     mobile: {
         type: Number,
         default:0
+    },
+    cart:{
+        type: Array,
+        default:[]
     }
 
 
