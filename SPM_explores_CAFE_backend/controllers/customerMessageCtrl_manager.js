@@ -1,8 +1,16 @@
 const Messages = require('../models/customerMessageModel_manager')
 
 const customerMessageCtrl_manager = {
-    getMessages: async (req, res) => {
-        try {
+    getNotReadMessages: async (req, res) => {
+        try {//{"status": {$ne: "Not checked"}
+            const messages = await Messages.find({"status": {$ne: "Read"}})
+            res.json(messages)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getAllMessages: async (req, res) => {
+        try {//{"status": {$ne: "Not checked"}
             const messages = await Messages.find()
             res.json(messages)
         } catch (err) {

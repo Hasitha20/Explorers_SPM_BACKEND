@@ -15,7 +15,7 @@ const customerMessageSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: "not read"
+        default: "Not read"
     }
 }, {
     timestamps: true

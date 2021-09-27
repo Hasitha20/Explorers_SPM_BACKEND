@@ -18,6 +18,7 @@ app.use('/emp', require('./routes/empRouter'))
 app.use('/api', require('./routes/categoryRouter'))
 app.use('/upload', require('./routes/upload'))
 app.use('/api', require('./routes/customerMessageRouter_manager'))
+app.use('/empSal', require('./routes/employeePaymentsRouter'))
 
 // Calling Routes
 app.use('/user', require('./userRouter/userRouter'))

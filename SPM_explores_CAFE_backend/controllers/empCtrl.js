@@ -164,8 +164,16 @@ const empCtrl = {
     }, 
     getEmployeesInformation: async (req, res) => {
         try {
-            
             const employee = await Employees.find()
+            res.json(employee)
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getEmployeesPaymentInformation: async (req, res) => {
+        try {
+            const employee = await Employees.find({"status": {$ne: "Leave"}})
             res.json(employee)
 
         } catch (err) {
