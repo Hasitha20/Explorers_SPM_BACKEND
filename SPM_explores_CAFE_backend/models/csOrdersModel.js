@@ -9,6 +9,10 @@ const csOrdersSchema = new mongoose.Schema({
         type: Date,
         required: true
     },    
+    customerid:{
+        type: String,
+        required: true
+    },
     customername:{
         type: String,
         required: true,

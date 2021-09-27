@@ -1,5 +1,4 @@
 const CSOrders = require('../models/csOrdersModel')
-
 class APIfeatures{
     constructor(query, queryString){
         this.query = query;
@@ -54,11 +53,11 @@ const csOrdersCtrl = {
     },
     createOrder: async(req, res)=>{
         try{
-            const {orderid, date, customername, totalPrice, status} = req.body;
+            const {orderid, date,customerid, customername, totalPrice, status} = req.body;
 
            
             const newOrder = new CSOrders({
-                    orderid, date, customername: customername.toLowerCase(), totalPrice, status
+                    orderid, date, customerid, customername: customername.toLowerCase(), totalPrice, status
             })
             await newOrder.save()
             res.json({msg: "Created a order"})
@@ -76,10 +75,10 @@ const csOrdersCtrl = {
     },
     updateOrder: async(req, res)=>{
         try{
-            const {date, customername, totalPrice, status} = req.body;
+            const {date, customerid, customername, totalPrice, status} = req.body;
            
             await CSOrders.findOneAndUpdate({_id: req.params.id}, {
-                date, customername: customername.toLowerCase(), totalPrice, status
+                date,customerid, customername: customername.toLowerCase(), totalPrice, status
             })
 
             res.json({msg: "Updated a Order"})
@@ -100,7 +99,7 @@ const csOrdersCtrl = {
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
-    },
+    }
 }
 
 module.exports = csOrdersCtrl
