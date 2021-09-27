@@ -12,11 +12,25 @@ app.use(cors())
 app.use(fileUpload({
     useTempFiles: true
 }))
+ 
 
 // Calling Routes
 app.use('/user', require('./userRouter/userRouter'))
 app.use('/api', require('./userRouter/foodsRouter'))
 app.use('/api', require('./userRouter/upload'))
+ 
+ 
+// Routes
+app.use('/emp', require('./routes/empRouter'))
+app.use('/api', require('./routes/categoryRouter'))
+app.use('/api', require('./routes/upload'))
+app.use('/api', require('./routes/customerMessageRouter_manager'))
+
+// KM
+app.use('/api', require('./routes/uploadKM'))
+app.use('/api', require('./routes/foodsRouter'))
+ 
+ 
 
 
 //connect to DB
