@@ -23,7 +23,7 @@ const foodSchema = new mongoose.Schema({
     },
     images: {
         type: Object,
-        // required: true
+        required: true
     },
     price: {
         type: Number,
@@ -33,10 +33,10 @@ const foodSchema = new mongoose.Schema({
         type: String,
         default: 'Display'
     },
-    // category: {
-    //     type: String,
-    //     required: true
-    // },
+   /*  category: {
+        type: String,
+        required: true
+    }, */
     sold: {
         type: Number,
         default: 0

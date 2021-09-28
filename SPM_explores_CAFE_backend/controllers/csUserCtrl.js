@@ -1,4 +1,5 @@
 const csUsers = require('../models/csUserModel')
+const CSPayments = require('../models/csPaymentModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -99,6 +100,16 @@ const csUserCtrl = {
 
 
             res.json(csuser)
+        }catch(err){
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getPaymenthistory: async(req, res) =>{
+        try{
+            const history = await CSPayments.find({user_id: req.user.id})
+
+            res.json(history)
+
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
