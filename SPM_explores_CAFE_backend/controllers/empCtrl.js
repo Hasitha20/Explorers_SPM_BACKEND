@@ -73,7 +73,7 @@ const empCtrl = {
 
             const passwordHash = await bcrypt.hash(password, 10)
             const newEmp = new Employees({
-                name,
+                name : name.toLowerCase(),
                 email,
                 password : passwordHash,
                 designation : designation.toLowerCase(),
@@ -118,7 +118,7 @@ const empCtrl = {
                 httpOnly: true,
                 path: '/emp/refresh_token'
             })
-
+ 
             res.json({accesstoken})
 
         } catch (err) {
@@ -154,20 +154,40 @@ const empCtrl = {
     },
     getEmployee: async (req, res) => {
         try {
-            const employee = await Employees.findById(req.employee.id).select('-password')
+            const employee = await Employees.findById(req.user.id).select('-password')
             if(!employee) return res.status(400).json({msg: "Employee does not exist"})
 
             res.json(employee)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    },
+    }, 
     getEmployeesInformation: async (req, res) => {
         try {
-            
             const employee = await Employees.find()
             res.json(employee)
 
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getEmployeesPaymentInformation: async (req, res) => {
+        try {
+            const employee = await Employees.find({"status": {$ne: "Leave"}})
+            res.json(employee)
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    updateEmpDetails: async (req, res) => {
+        try {
+            const {status} = req.body;
+
+            await Employees.findOneAndUpdate({_id: req.params.id}, {
+                status
+            })
+            res.json({msg: "Changed the status of the Duty"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

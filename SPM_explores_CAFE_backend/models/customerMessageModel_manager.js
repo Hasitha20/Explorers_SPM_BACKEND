@@ -5,9 +5,17 @@ const customerMessageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    subject: {
+        type: String,
+        required: true
+    },
     message: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        default: "Not read"
     }
 }, {
     timestamps: true

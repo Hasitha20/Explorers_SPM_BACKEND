@@ -16,4 +16,8 @@ router.get('/getEmpList', empCtrl.getEmployeeList)
 
 router.get('/getEmployee', empCtrl.getEmployeesInformation)
 
-module.exports = router
+router.put('/updateEmpStatus/:id', empCtrl.updateEmpDetails)
+
+router.get('/getEmployeesPaymentInformation', empCtrl.getEmployeesPaymentInformation)
+
+module.exports = router 

@@ -132,6 +132,16 @@ const userCtrl = {
            return res.status(500).json({msg:err.message}) 
         }
     },
+ 
+    getCustomerInformation: async (req, res) => {
+        try {
+            
+            const user = await Users.find({role: {$nin: [1, 4, 5, 6]}})
+            res.json(user)
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+ 
     addCart: async (req,res) =>{
         try{
             const user = await Users.findById(req.user.id)
@@ -142,6 +152,7 @@ const userCtrl = {
             })
         }catch(err){
             return res.status(500).json({msg:err.message}) 
+ 
         }
     }
 }
