@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-const userC = {
+const userCtrl = {
 
     register: async(req, res) => {
         try{
@@ -132,6 +132,7 @@ const userC = {
            return res.status(500).json({msg:err.message}) 
         }
     },
+ 
     getCustomerInformation: async (req, res) => {
         try {
             
@@ -140,6 +141,18 @@ const userC = {
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
+ 
+    addCart: async (req,res) =>{
+        try{
+            const user = await Users.findById(req.user.id)
+            if(!user) return res.status(400).json({msg:"User does not exist"})
+
+            await Users.findOneAndUpdate({_id: req.user.id},{
+                cart: req.body.cart
+            })
+        }catch(err){
+            return res.status(500).json({msg:err.message}) 
+ 
         }
     }
 }
@@ -153,4 +166,4 @@ const createRefreshToken = (user) => {
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {expiresIn:'7d'})
 }
 
-module.exports = userC
+module.exports = userCtrl

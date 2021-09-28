@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const csOrdersSchema = new mongoose.Schema({
-    orderID:{
+    orderid:{
         type: String,
         required: true
     },
@@ -9,8 +9,12 @@ const csOrdersSchema = new mongoose.Schema({
         type: Date,
         required: true
     },    
-    customerID:{
-        type: Number,
+    customerid:{
+        type: String,
+        required: true
+    },
+    customername:{
+        type: String,
         required: true,
         trim: true
     },
