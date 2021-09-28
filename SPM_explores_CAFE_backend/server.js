@@ -29,6 +29,8 @@ app.use('/api', require('./userRouter/upload'))
 // KM
 app.use('/api', require('./routes/uploadKM'))
 app.use('/api', require('./routes/foodsRouter'))
+app.use('/api', require('./routes/notificationsKMRouter'))
+app.use('/api', require('./routes/dailyMenuRouter'))
  
 const cookieparser = require('cookie-parser')
 
