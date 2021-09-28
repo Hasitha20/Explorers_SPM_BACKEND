@@ -41,6 +41,7 @@ const categoryCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    
     updateCategory: async (req, res) => {
         try {
             const {categoryName, status, images} = req.body;
