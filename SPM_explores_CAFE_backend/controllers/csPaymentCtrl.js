@@ -20,12 +20,12 @@ const PaymentCtrl = {
             const csuser = await CSUsers.findById(req.csuser.id).select('name email')
             if(!csuser)  return res.status(400).json({msg: err.message})
 
-            const {itemList, paymentID, address} = req.body;
+            const {itemList, user_id, paymentID} = req.body;
             const {_id} = csorder;
             const {name, email} = csuser;
 
             const newPayment = new CSPayments({
-                orderid: _id, name, email, itemList, paymentID, address
+                orderid: _id,user_id, name, email, itemList, paymentID
             })
             
             itemList.filter(item=>{

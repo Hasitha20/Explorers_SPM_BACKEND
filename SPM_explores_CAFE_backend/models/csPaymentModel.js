@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
 const paymentSchema = new mongoose.Schema({
-    order_id: {
+    orderid: {
         type: String,
         required: true
     },
-    user_id: {
-        type: String,
+    user_id:{
+        type:String,
         required: true
     },
     name: {
@@ -19,10 +19,6 @@ const paymentSchema = new mongoose.Schema({
     },
     paymentID: {
         type: String,
-        required: true
-    },
-    address: {
-        type: Object,
         required: true
     },
     itemList: {

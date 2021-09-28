@@ -53,11 +53,11 @@ const csOrdersCtrl = {
     },
     createOrder: async(req, res)=>{
         try{
-            const {orderid, date,customerid, customername, totalPrice, status} = req.body;
+            const {orderid, date,customerid, customername, totalPrice,itemList, status} = req.body;
 
            
             const newOrder = new CSOrders({
-                    orderid, date, customerid, customername: customername.toLowerCase(), totalPrice, status
+                    orderid, date, customerid, customername: customername.toLowerCase(), totalPrice, itemList, status
             })
             await newOrder.save()
             res.json({msg: "Created a order"})
@@ -96,6 +96,16 @@ const csOrdersCtrl = {
             })
             
             return res.json({msg: "Added to item list"})
+        }catch(err){
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getSingleOrder: async(req, res) =>{
+        try{
+            const orderhistory = await CSOrders.find({_id: req.params.id})
+
+            res.json(orderhistory)
+
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
