@@ -141,7 +141,8 @@ const userCtrl = {
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
- 
+        }
+    },
     addCart: async (req,res) =>{
         try{
             const user = await Users.findById(req.user.id)
