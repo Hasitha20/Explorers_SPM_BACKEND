@@ -48,4 +48,4 @@ const foodSchema = new mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model("Foods", foodSchema)
+module.exports = mongoose.model("FoodsKM", foodSchema)
