@@ -32,16 +32,6 @@ app.use('/api', require('./routes/foodsRouter'))
 app.use('/api', require('./routes/notificationsKMRouter'))
 app.use('/api', require('./routes/dailyMenuRouter'))
  
-const cookieparser = require('cookie-parser')
-
-const app = express()
-app.use(express.json())
-app.use(cookieparser())
-app.use(cors())
-app.use(fileUpload({
-    useTempFiles: true
-
-}))
 
  
 
@@ -74,20 +64,6 @@ mongoose.connect(URI, {
     if(err) throw err;
     console.log("Connected MongoDB")
 })
-
-
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-    console.log('Server is running on PORT ', PORT)
-  
-}, err =>{
-    if(err) throw err;
-    console.log('Connected to mongodb')
-})
-
-/* app.get('/', (req, res)=>{
-    res.json({msg: "Welcome msg"})
-}) */
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, ()=>{
