@@ -109,6 +109,19 @@ const csOrdersCtrl = {
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
+    },
+    calculateAmount: async(req, res)=>{
+        if(req.params && req.params.id){
+            const order = await CSOrders.findById(req.params.id);
+                let totalAmount = 0;
+                if(order.itemList.length > 0){
+                    order.itemList.map((order)=>{
+                        totalAmount += order.price * order.sold;
+                })
+    
+            }
+            res.status(200).send({totalAmount:totalAmount});
+        }
     }
 }
 

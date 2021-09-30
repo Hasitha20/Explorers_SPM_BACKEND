@@ -14,23 +14,16 @@ const PaymentCtrl = {
     },
     createPayment: async(req, res)=>{
         try{
-            const csorder = await CSOrders.findById(req.csorder.id)
-            if(!csorder)  return res.status(400).json({msg: err.message})
+            const {orderid, user_id, paymentID, itemList } = req.body;
+            
+            const payment = await CSPayments.findOne({paymentID})
 
-            const csuser = await CSUsers.findById(req.csuser.id).select('name email')
-            if(!csuser)  return res.status(400).json({msg: err.message})
-
-            const {itemList, user_id, paymentID} = req.body;
-            const {_id} = csorder;
-            const {name, email} = csuser;
+            if(payment) return res.status(400).json({msg: "This order already added payments.Again cannot added"})
 
             const newPayment = new CSPayments({
-                orderid: _id,user_id, name, email, itemList, paymentID
+                orderid, user_id, paymentID, itemList
             })
-            
-            itemList.filter(item=>{
-                return sold(item._id, item.quantity, item.sold)
-            })
+           
             await newPayment.save()
             res.json({msg: "Payment success!"})
         }catch(err){

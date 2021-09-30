@@ -14,4 +14,7 @@ router.route('/csorder/:id')
 
 router.route('/additems/:id')
     .patch(auth, CSOrdersCtrl.addItemList)
+
+router.route('/calculateAmount/:id')
+    .get(CSOrdersCtrl.calculateAmount)
 module.exports = router
