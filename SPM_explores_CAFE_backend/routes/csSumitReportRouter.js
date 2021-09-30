@@ -10,5 +10,6 @@ router.route('/submitreport')
 router.route('/submitreport/:id')
     .delete(submitReportCtrl.deletesubmitReport)
     .put(submitReportCtrl.updatesubmitReport)
+    .get(submitReportCtrl.getSingleReport)
 
 module.exports = router

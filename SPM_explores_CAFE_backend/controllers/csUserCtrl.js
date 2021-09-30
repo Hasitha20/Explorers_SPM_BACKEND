@@ -113,6 +113,14 @@ const csUserCtrl = {
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
+    },
+    getCustomers: async(req, res) =>{
+        try{
+            const customers = await csUsers.find({role: {$nin: [1, 2, 3, 4]}})
+            res.json(customers)
+        }catch(err){
+            return res.status(500).json({msg: err.message})
+        }
     }
 
 }

@@ -97,6 +97,16 @@ const submitReportCtrl = {
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
+    },
+    getSingleReport: async(req, res) =>{
+        try{
+            const reporthistory = await submitReport.find({_id: req.params.id})
+
+            res.json(reporthistory)
+
+        }catch(err){
+            return res.status(500).json({msg: err.message})
+        }
     }
 }
 

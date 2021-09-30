@@ -75,10 +75,10 @@ const csOrdersCtrl = {
     },
     updateOrder: async(req, res)=>{
         try{
-            const {date, customerid, customername, totalPrice, status} = req.body;
+            const { status} = req.body;
            
             await CSOrders.findOneAndUpdate({_id: req.params.id}, {
-                date,customerid, customername: customername.toLowerCase(), totalPrice, status
+                 status
             })
 
             res.json({msg: "Updated a Order"})

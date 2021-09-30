@@ -11,4 +11,6 @@ router.get('/logout', csUserCtrl.logout)
 router.get('/refresh_token', csUserCtrl.refreshToken)
 
 router.get('/infor',csauth, csUserCtrl.getUser)
+
+router.get('/getCustomers', csUserCtrl.getCustomers)
 module.exports = router
